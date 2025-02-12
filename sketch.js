@@ -5,13 +5,13 @@ let data = dataJSON;
 const s = ( p ) => {
     let font;
 
-    let canvasWidth = 800;
-    let canvasHeight = 600;
+    let canvasWidth = 1200;
+    let canvasHeight = 800;
     let backgroundColor = "white";
     let mainColor = "black";
     let subColor = "gray";
 
-    let scaleX = 1;
+    let scaleX = 0.5;
     let scaleY = 1;
 
     let gapX = 0;
@@ -65,9 +65,9 @@ const s = ( p ) => {
 
             // Calculate position based on time
             let posX = timeScaled * scaleX;
-            let posY = 100;
+            let posY = 10 + 8 * i;
             let width = lengthScaled * scaleX;
-            let height = canvasHeight / 7;
+            let height = 20;
 
             // x, y, width, height
             p.rect(posX, posY, width, height);
@@ -79,6 +79,13 @@ const s = ( p ) => {
                 // Online
                 // Draw line above
                 p.rect(posX, posY - 10, width, 4);
+                
+                // text creation
+                p.noStroke();
+                p.fill('black');
+                p.textSize(5);
+                p.textAlign(p.RIGHT, p.CENTER);
+                p.text(obj.name, posX, posY);
             }
 
             // x1, y1, x2, y2

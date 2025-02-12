@@ -39,5 +39,7 @@ async function csvJSON(fp) {
     }
 }
 
-export let dataJSON = await csvJSON('./data/test-data.csv');
+//export let dataJSON = await csvJSON('./data/test-data.csv');
+//export let dataJSON = await csvJSON('./data/day1.csv');
+export let dataJSON = await csvJSON('./data/interactions-full.csv');
 console.log(dataJSON);
