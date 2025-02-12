@@ -1,14 +1,22 @@
+import { dataJSON } from "./dataService";
+let data = dataJSON;
+
 // p5 instance mode
 const s = ( p ) => {
     let font;
 
-    function connectBtnClick() {
-        console.log("hi");
-    }
+    let canvasWidth = 800;
+    let canvasHeight = 600;
+    let backgroundColor = "black";
+
+    let scaleX = 1;
+    let scaleY = 1;
+
+    let gapX = 0;
 
     p.setup = () => {
-        p.createCanvas(800, 600);
-        p.background(250);
+        p.createCanvas(canvasWidth, canvasHeight);
+        p.background(backgroundColor);
         p.textSize(20);
         p.textStyle(p.BOLD);
         if (font) {
@@ -16,12 +24,6 @@ const s = ( p ) => {
         } else {
             p.textFont('Courier New');
         }
-
-        // any other ports can be opened via a dialog after
-        // user interaction (see connectBtnClick below)
-        let connectBtn = p.createButton('Connect to Arduino');
-        connectBtn.position(700, 200);
-        connectBtn.mousePressed(connectBtnClick);
 
         // Clear canvas button
         let clearCanvasBtn = p.createButton('Clear canvas');
@@ -36,7 +38,10 @@ const s = ( p ) => {
     }
 
     p.draw = async () => {
-        
+        // Draw barcode from data
+        for (let i = 0; i < data.length; i++) {
+            console.log(data[i])
+        }
     }
 
 }
