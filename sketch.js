@@ -34,6 +34,7 @@ const s = ( p ) => {
         p.noStroke();
 
         p.textSize(10);
+        p.textSize(5);
         p.textStyle(p.BOLD);
         if (font) {
             p.textFont(font);
@@ -95,8 +96,8 @@ const s = ( p ) => {
             // Text label
             p.textAlign(p.RIGHT, p.BOTTOM);
             p.text(obj.name.substring(0, 2), posX, posY);
-            p.textAlign(p.RIGHT, p.BOTTOM);
-            p.text(obj.notes, posX + width, posY + height);
+            /*p.textAlign(p.RIGHT, p.BOTTOM);
+            p.text(obj.notes, posX + width, posY + height);*/
 
             if (obj.type === "P") {
                 // In person
@@ -106,18 +107,6 @@ const s = ( p ) => {
                 // Draw line above
                 p.rect(posX, posY - 5, width, 2);
             }
-
-            // x1, y1, x2, y2
-             // lines creation
-            /*let posX = provinceWaste[i]/2;
-            let posY = 70 + i * w/12;
-            stroke(provinceColors[i]);
-            strokeWeight(60)
-            strokeCap(SQUARE);
-            line(50, posY, 50 + posX, posY);
-
-            // x1, y1, x2, y2
-            line(20, 200, 200, 350);*/
         }
     }
 
