@@ -86,7 +86,7 @@ const s = ( p ) => {
     p.draw = async () => {
         // Animate based on mode
         if (modeScaleX) {
-            scaleX += 0.1;
+            scaleX += 0.01;
             drawData();
         }
         if (modeScaleY) {
