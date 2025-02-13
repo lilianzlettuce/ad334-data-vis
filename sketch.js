@@ -23,7 +23,7 @@ const s = ( p ) => {
     //subColor = "white;"
 
     // Editable draw variables
-    let scaleX = 0.5;
+    let scaleX = 0.8;
     let scaleY = 1;
 
     // Animation modes (turn on/off by button)
@@ -86,7 +86,7 @@ const s = ( p ) => {
     p.draw = async () => {
         // Animate based on mode
         if (modeScaleX) {
-            scaleX += 0.01;
+            scaleX += 0.05;
             drawData();
         }
         if (modeScaleY) {
