@@ -48,12 +48,14 @@ const s = ( p ) => {
     // Editable draw variables
     let scaleX = 0.8;
     let scaleY = 1;
+    let gapY = 0;
 
     // Animation modes (turn on/off by button)
     let modeScaleX = false;
     let modeScaleY = false;
 
-    let gapY = 0;
+    let notesOn = false; // show notes?
+    let preserve = false; // layer canvas when switching themes?
 
     p.setup = () => {
         p.createCanvas(canvasWidth, canvasHeight);
@@ -61,8 +63,6 @@ const s = ( p ) => {
         p.background(backgroundColor);
         p.noStroke();
 
-        p.textSize(10);
-        p.textSize(5);
         p.textStyle(p.BOLD);
         if (font) {
             p.textFont(font);
@@ -101,9 +101,11 @@ const s = ( p ) => {
             mainColor = themes[currentTheme].mainColor;
             subColor = themes[currentTheme].subColor;
 
-            // Reset canvas
-            p.clear();
-            p.background(backgroundColor);
+            if (!preserve) {
+                // Reset canvas
+                p.clear();
+                p.background(backgroundColor);
+            }
 
             // Redraw graphics
             drawData();
@@ -113,18 +115,25 @@ const s = ( p ) => {
         let btn4 = p.createButton('-REVEAL');
         btn4.position(canvasWidth - 70, btnStartY + btnGapY * btnTempNum);
         btn4.mousePressed(() => {
-            // Toggle theme
-            currentTheme = (currentTheme + 1) % themes.length;
-            backgroundColor = themes[currentTheme].backgroundColor;
-            mainColor = themes[currentTheme].mainColor;
-            subColor = themes[currentTheme].subColor;
+            // Toggle text mode
+            notesOn = !notesOn;
 
-            // Reset canvas
-            p.clear();
-            p.background(backgroundColor);
+            if (!preserve) {
+                // Reset canvas
+                p.clear();
+                p.background(backgroundColor);
+            }
 
             // Redraw graphics
             drawData();
+        });
+        btnTempNum++;
+
+        let btn5 = p.createButton('-PRESERVE');
+        btn5.position(canvasWidth - 70, btnStartY + btnGapY * btnTempNum);
+        btn5.mousePressed(() => {
+            // Toggle preserve
+            preserve = !preserve;
         });
         btnTempNum++;
 
@@ -150,7 +159,8 @@ const s = ( p ) => {
     }
 
     function drawData() {
-        // Draw barcode from data
+        /* Draw barcode graphics from data */
+
         let lineNum = 0; // for splitting days into lines vertically
         let lastDate = "";
         for (let i = 0; i < data.length; i++) {
@@ -192,11 +202,21 @@ const s = ( p ) => {
             // x, y, width, height
             p.rect(posX, posY, width, height);
 
-            // Text label
+            // Check text mode
+            if (notesOn) {
+                // Display notes
+                p.textSize(10);
+
+                p.textAlign(p.RIGHT, p.BOTTOM);
+                p.text(obj.notes, posX + width, posY + height);
+            } else {
+                // Don't disply notes
+                p.textSize(5);
+            }
+
+            // Draw text label
             p.textAlign(p.RIGHT, p.BOTTOM);
             p.text(obj.name.substring(0, 2), posX, posY);
-            /*p.textAlign(p.RIGHT, p.BOTTOM);
-            p.text(obj.notes, posX + width, posY + height);*/
 
             if (obj.type === "P") {
                 // In person
