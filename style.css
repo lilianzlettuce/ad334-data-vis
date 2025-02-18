@@ -7,3 +7,13 @@ canvas {
     display: block;
 }
   
+button {
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 5px 10px;
+    text-decoration: underline;
+    outline: none;
+    cursor: pointer;
+}

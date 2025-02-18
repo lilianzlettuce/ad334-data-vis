@@ -7,20 +7,43 @@ const s = ( p ) => {
 
     let canvasWidth = window.innerWidth - 30;
     let canvasHeight = window.innerHeight - 40;
-    let backgroundColor = "rgb(200, 200, 200)";
-    backgroundColor = "black";
-    let mainColor = "rgb(100, 200, 200)";
+
+    let backgroundColor = "black";
+    let mainColor = "white";
+    let subColor = "white";
+
+    // Options
+    /*mainColor = "rgb(100, 200, 200)";
     mainColor = "rgba(255, 0, 200, 0.87)";
     mainColor = "rgba(0, 123, 255, 0.89)";
-    mainColor = "rgb(225, 225, 113)";
-    //mainColor = "white";
 
-    /*backgroundColor = "rgb(200, 200, 200)";
-    mainColor = "white";*/
-
-    let subColor = "gray";
+    // Theme: Monochrome x Fantasia
+    backgroundColor = "rgb(200, 200, 200)";
+    mainColor = "white";
     subColor = "rgba(0, 123, 255, 0.89)";
-    //subColor = "white;"
+
+    // Theme: Neon dark
+    backgroundColor = "black";
+    mainColor = "rgb(225, 225, 113)";
+    subColor = "rgba(0, 123, 255, 0.89)";*/
+
+    let themeMonoDark = {
+        backgroundColor: "black",
+        mainColor: "white",
+        subColor: "white"
+    }
+    let themeMonoLight = {
+        backgroundColor: "white",
+        mainColor: "white",
+        subColor: "white"
+    }
+    let themeNeonDark = {
+        backgroundColor: "black",
+        mainColor: "rgb(225, 225, 113)",
+        subColor: "rgba(0, 123, 255, 0.89)"
+    };
+    let themes = [themeMonoDark, themeMonoLight, themeNeonDark];
+    let currentTheme = 0;
 
     // Editable draw variables
     let scaleX = 0.8;
@@ -47,32 +70,63 @@ const s = ( p ) => {
             p.textFont('Courier New');
         }
 
+        /* Place buttons */
+        let btnStartY = 20;
+        let btnGapY = 30;
+        let btnTempNum = 0;
+
         // Clear canvas button
         let btn = p.createButton('-CORRUPT');
-        btn.position(canvasWidth - 70, 20);
+        btn.position(canvasWidth - 70, btnStartY + btnGapY * btnTempNum);
         btn.mousePressed(() => {
             // turn on mode scale Y
             modeScaleY = true;
         });
-        btn.style("font-family", "Courier New");
-        btn.style("padding", "5px 10px");
-        btn.style("text-decoration", "underline");
-        btn.style("background-color", "black");
-        btn.style("color", "white");
-        btn.style("font-size", "12px");
+        btnTempNum++;
 
         let btn2 = p.createButton('-DESTROY');
-        btn2.position(canvasWidth - 70, 50);
+        btn2.position(canvasWidth - 70, btnStartY + btnGapY * btnTempNum);
         btn2.mousePressed(() => {
             // turn on mode scale Y
             modeScaleX = true;
         });
-        btn2.style("font-family", "Courier New");
-        btn2.style("padding", "5px 10px");
-        btn2.style("text-decoration", "underline");
-        btn2.style("background-color", "black");
-        btn2.style("color", "white");
-        btn2.style("font-size", "12px");
+        btnTempNum++;
+
+        let btn3 = p.createButton('-SHIFT');
+        btn3.position(canvasWidth - 70, btnStartY + btnGapY * btnTempNum);
+        btn3.mousePressed(() => {
+            // Toggle theme
+            currentTheme = (currentTheme + 1) % themes.length;
+            backgroundColor = themes[currentTheme].backgroundColor;
+            mainColor = themes[currentTheme].mainColor;
+            subColor = themes[currentTheme].subColor;
+
+            // Reset canvas
+            p.clear();
+            p.background(backgroundColor);
+
+            // Redraw graphics
+            drawData();
+        });
+        btnTempNum++;
+
+        let btn4 = p.createButton('-REVEAL');
+        btn4.position(canvasWidth - 70, btnStartY + btnGapY * btnTempNum);
+        btn4.mousePressed(() => {
+            // Toggle theme
+            currentTheme = (currentTheme + 1) % themes.length;
+            backgroundColor = themes[currentTheme].backgroundColor;
+            mainColor = themes[currentTheme].mainColor;
+            subColor = themes[currentTheme].subColor;
+
+            // Reset canvas
+            p.clear();
+            p.background(backgroundColor);
+
+            // Redraw graphics
+            drawData();
+        });
+        btnTempNum++;
 
         drawData();
     }
